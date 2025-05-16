@@ -6,6 +6,7 @@
 }
 
 body{
+    background-color: #244855;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,11 +16,15 @@ body{
 .title{
     font-size: 2rem;
     margin: 1rem;
+    background-color: #90AEAD;
+    border-radius: 10%;
+    border-bottom: 2px solid black;
 }
 
 .container{
     height: 80vh;
     width: 80vh;
+    background-color: gray;
 }
 
 .controls{
@@ -27,16 +32,23 @@ body{
     gap:3vw;
     align-items: center;
     margin: 1rem;
-    width: 100%;
+    width: 70%;
+    height: 10%;
     justify-content: center;
+    background-color: #FBE9D0;
+    border-style: inset;
+    border-radius: 25%;;
 }
 .clear{
     height: 70%;
     width: 7vw;
+    background-color: #E64833;
+    color:lightgray;
 }
 
 .clear:hover{
     background-color: lightblue;
+    color:black;
 }
 
 
@@ -46,10 +58,13 @@ body{
 
 .grid-submit{
      width: 8vw;
+      background-color: #E64833;
+    color:lightgray;
 }
 
 .grid-submit:hover{
     background-color: lightblue;
+    color:black;
 }
 
 .color{
@@ -69,7 +84,18 @@ body{
 .rainbow:hover{
     animation: colochange 9s infinite;
     border:2px solid transparent;
+    color:black;
 }
+
+.rainbow{
+     background-color: #E64833;
+    color:lightgray;
+}
+.special{
+     background-color: #E64833;
+    color:lightgray;
+}
+
 
 .rainbow.tog{
     background-color:darkgray;
@@ -85,17 +111,45 @@ body{
     0%{
         background-color: rgb(255, 255, 255);
     }
-    25%{
-        background-color: orange;
+    20%{
+        background-color: rgb(255, 187, 0);
     }
-    50%{
-        background-color: yellow;
+    40%{
+        background-color: rgb(162, 255, 0);
     }
-    75%{
-        background-color: green;
+    60%{
+        background-color: rgb(9, 229, 218);
+    }
+    80%{
+        background-color: rgb(140, 0, 255);
     }
     100%{
-        background-color: blue;
+        background-color: white;
     }
 }
 
+
+.text-content1,.text-content2{
+    border:2px dashed transparent;
+    align-content: center;
+    height: 15%;
+    border-radius: 8vh;
+    margin: 0.5rem;
+    min-width: 5rem;
+    text-align: center;
+    color:white;
+    background-color: #874F41;
+    opacity: 0;
+}
+
+
+
+.box{
+    display: flex;
+    align-items: center;
+}
+
+
+.color-input, .grid-input{
+    background-color:#90AEAD ;
+}

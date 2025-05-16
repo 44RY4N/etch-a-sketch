@@ -5,6 +5,14 @@ const colorInput = document.querySelector(".color-input");
 const rainbow = document.querySelector(".rainbow");
 const clear = document.querySelector(".clear");
 
+let filled=0;
+let currentGrid = 16;
+for(let i=0;i<16*16;i++){
+    const div = document.createElement("div");
+    div.style.height = "calc(100% / 16)";
+    div.style.width = "calc(100% / 16)";
+    container.appendChild(div);
+}
 let currentColor = "black";
 addIt();
 function addIt(){
@@ -12,6 +20,9 @@ let blocks = Array.from(document.querySelectorAll(".container div"));
 for (let i=0;i<blocks.length;i++){
     blocks[i].addEventListener("mouseover",function(e){
         e.target.style.backgroundColor = currentColor;
+        filled++;
+        updateText()
+        console.log(filled);
     })
 }
 }
@@ -41,13 +52,17 @@ function togSpecial() {
     });
     addIt(); // re-add default coloring
     special = false;
+    clearIt();
       console.log("Special OFF");
-    return;
+    return; 
   }
 
   // turn on special mode
   blocks.forEach(block => {
     block.addEventListener("mouseover", specialEffect);
+    filled++;
+    updateText()
+    console.log(filled);
   });
 
   special = true;
@@ -63,19 +78,18 @@ function togSpecial() {
 
 
 
-for(let i=0;i<16*16;i++){
-    const div = document.createElement("div");
-    div.style.height = "calc(100% / 16)";
-    div.style.width = "calc(100% / 16)";
-    container.appendChild(div);
-}
+
 
 
 // button functions
 gridSubmit.addEventListener("click",function(e){
+    if(gridInput.value!=currentGrid && gridInput.value!=null && gridInput.value!=undefined && gridInput.value!=""){
     e.preventDefault();
-    changeGrid(gridInput.value);    //grid button
+    changeGrid(gridInput.value); 
+    currentGrid = gridInput.value;  //grid button
     addIt();
+    clearIt();
+    }
 });
 
 colorInput.addEventListener("change",function(e){
@@ -83,12 +97,16 @@ colorInput.addEventListener("change",function(e){
     addIt();       //color picker
 });
 
+
 clear.addEventListener("click",function(e){
     e.preventDefault();
-    container.style.backgroundColor = "white";      //clear
-    for(let i=0;i<16*16;i++){
-        container.children[i].style.backgroundColor = "white";
+    container.style.backgroundColor = "gray";      //clear
+    for(let i=0;i<currentGrid*currentGrid;i++){
+        container.children[i].style.backgroundColor = "gray";
     }
+    filled = 0;
+    updateText();
+    console.log(filled);
     let blocks = Array.from(document.querySelectorAll(".container div"));
 if(special){
     blocks.forEach(element => {
@@ -97,6 +115,25 @@ if(special){
     return;
 }
 });
+
+
+
+function clearIt(){
+
+    for(let i=0;i<currentGrid*currentGrid;i++){
+        container.children[i].style.backgroundColor = "gray";
+    }
+    filled = 0;
+    updateText();
+    console.log(filled);
+    let blocks = Array.from(document.querySelectorAll(".container div"));
+if(special){
+    blocks.forEach(element => {
+        element.classList.remove("special");
+    });
+    }
+}
+
 
 
 
@@ -129,6 +166,9 @@ rainbow.addEventListener("click",function(e){
     for (let i=0;i<blocks.length;i++){
     blocks[i].addEventListener("mouseover",function(e){
         e.target.style.backgroundColor = `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`;
+        filled++;
+        updateText();
+        console.log(filled);
     })
 } 
 });
@@ -157,4 +197,30 @@ function changeGrid(size){
         container.appendChild(div);
     }
 
+}
+
+
+function updateText(){
+       let textBlock1 = document.querySelector(".text-content1");
+    let textBlock2 = document.querySelector(".text-content2");
+
+if (filled) {
+    let maxFill = (currentGrid * currentGrid) / 2;
+    console.log(`this is our max fill ${maxFill}`);
+    console.log(`this is currently filled ${filled}`);
+
+    if (filled < maxFill) {
+        let alpha = filled / maxFill;
+        textBlock1.style.opacity = alpha;
+    }
+    else if(filled>=maxFill){
+        console.log("starting to fill");
+        let alpha = (filled - maxFill) / maxFill;
+        textBlock2.style.opacity = alpha;
+    }
+}
+else{
+    textBlock1.style.opacity = "0";
+    textBlock2.style.opacity = "0";
+}
 }
